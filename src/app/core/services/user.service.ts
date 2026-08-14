@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Role, User } from '../models/user.model';
+import { Role, User, UserStatus } from '../models/user.model';
 
 export interface CreateUserRequest {
   matricule: string;
@@ -12,6 +12,15 @@ export interface CreateUserRequest {
   password: string;
   role: Role;
   department?: string;
+}
+
+export interface AdminUpdateUserRequest {
+  fullName: string;
+  email?: string;
+  phone?: string;
+  role: Role;
+  department?: string;
+  password?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -30,5 +39,32 @@ export class UserService {
 
   create(request: CreateUserRequest): Observable<User> {
     return this.http.post<User>(this.baseUrl, request);
+  }
+
+  update(id: number, request: AdminUpdateUserRequest): Observable<User> {
+    return this.http.put<User>(`${this.baseUrl}/${id}`, request);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  setStatus(id: number, status: UserStatus): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/${id}/status`, { status });
+  }
+
+  uploadAvatar(id: number, file: File): Observable<User> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<User>(`${this.baseUrl}/${id}/avatar`, formData);
+  }
+
+  removeAvatar(id: number): Observable<User> {
+    return this.http.delete<User>(`${this.baseUrl}/${id}/avatar`);
+  }
+
+  /** Fetched as a blob (not a plain <img src="...">) so the JWT auth header attaches. */
+  getAvatarBlob(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/${id}/avatar`, { responseType: 'blob' });
   }
 }

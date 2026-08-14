@@ -41,3 +41,43 @@
   background: var(--brand-primary-light);
   color: var(--brand-primary);
 }
+
+.status-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #e3f6e9;
+  color: #1a8a4a;
+
+  &.status-suspended {
+    background: #fdeaea;
+    color: #c62828;
+  }
+}
+
+.row-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.avatar-editor {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.avatar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}

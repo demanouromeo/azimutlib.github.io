@@ -31,8 +31,21 @@
 }
 
 .hero-cta {
-  color: white;
-  border-color: rgba(255, 255, 255, 0.6);
+  --mdc-outlined-button-label-text-color: #ffffff;
+  --mdc-outlined-button-outline-color: transparent;
+  --mat-mdc-button-persistent-ripple-color: #ffffff;
+  --mat-mdc-button-ripple-color: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff7a59 0%, #ff4f8b 100%);
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(255, 79, 139, 0.35);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(255, 79, 139, 0.45);
+    transform: translateY(-1px);
+  }
 }
 
 .hero-illustration {

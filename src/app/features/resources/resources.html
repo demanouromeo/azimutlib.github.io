@@ -34,7 +34,7 @@
     </div>
 
     <div class="quick-add-category">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>{{ 'resources.newCategory' | translate }}</mat-label>
         <input matInput [(ngModel)]="newCategoryName" (keyup.enter)="addCategory()" />
       </mat-form-field>

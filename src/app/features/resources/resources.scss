@@ -24,13 +24,17 @@
 
 .quick-add-category {
   display: flex;
-  align-items: start;
+  align-items: stretch;
   gap: 12px;
   margin-top: 4px;
 
   mat-form-field {
     flex: 1;
     max-width: 320px;
+  }
+
+  button[mat-stroked-button] {
+    height: auto;
   }
 }
 
@@ -43,6 +47,36 @@
   input[type='file'] {
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: var(--brand-ink-soft);
+
+    &::file-selector-button,
+    &::-webkit-file-upload-button {
+      height: 40px;
+      padding: 0 20px;
+      margin-right: 12px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand-primary) 0%, #8b7ff0 100%);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(108, 93, 211, 0.35);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        box-shadow: 0 6px 16px rgba(108, 93, 211, 0.45);
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  button[mat-flat-button] {
+    height: 40px;
   }
 }
 

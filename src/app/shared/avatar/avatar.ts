@@ -1,10 +1,12 @@
 import { Component, effect, input, signal } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { ProfileService } from '../../core/services/profile.service';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/models/user.model';
 
-/** Renders the current user's avatar image, falling back to initials when none is set.
- *  Only supports "self" — there is no per-user avatar-viewing endpoint (see ProfileController) —
- *  which is all the app needs today (topbar chip + profile page). */
+/** Renders an avatar image, falling back to initials when none is set. Defaults to the
+ *  logged-in user (topbar chip, profile page); pass `[user]` to render someone else's
+ *  avatar instead (admin user list), fetched via the admin-only per-user avatar endpoint. */
 @Component({
   selector: 'app-avatar',
   standalone: true,
@@ -38,19 +40,23 @@ import { ProfileService } from '../../core/services/profile.service';
 })
 export class Avatar {
   size = input(34);
+  user = input<User | null>(null);
 
   avatarUrl = signal<string | null>(null);
 
   constructor(
     private readonly authService: AuthService,
-    private readonly profileService: ProfileService
+    private readonly profileService: ProfileService,
+    private readonly userService: UserService
   ) {
     effect((onCleanup) => {
-      const user = this.authService.currentUser();
+      const target = this.user() ?? this.authService.currentUser();
+      const isSelf = this.user() === null;
       let objectUrl: string | null = null;
 
-      if (user?.hasAvatar) {
-        this.profileService.getAvatarBlob().subscribe((blob) => {
+      if (target?.hasAvatar) {
+        const blob$ = isSelf ? this.profileService.getAvatarBlob() : this.userService.getAvatarBlob(target.id);
+        blob$.subscribe((blob) => {
           objectUrl = URL.createObjectURL(blob);
           this.avatarUrl.set(objectUrl);
         });
@@ -67,7 +73,7 @@ export class Avatar {
   }
 
   initials(): string {
-    const name = this.authService.currentUser()?.fullName ?? '';
+    const name = (this.user() ?? this.authService.currentUser())?.fullName ?? '';
     return name
       .split(' ')
       .filter(Boolean)
