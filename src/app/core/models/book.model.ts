@@ -13,6 +13,16 @@ export interface Book {
   totalCopies: number;
 }
 
+export type CopyStatus = 'AVAILABLE' | 'BORROWED' | 'RESERVED' | 'LOST' | 'DAMAGED' | 'IN_REPAIR';
+
+export interface BookCopy {
+  id: number;
+  bookId: number;
+  bookTitle: string;
+  inventoryCode: string;
+  status: CopyStatus;
+}
+
 export interface Page<T> {
   content: T[];
   totalElements: number;

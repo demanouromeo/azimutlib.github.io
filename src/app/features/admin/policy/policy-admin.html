@@ -1,0 +1,83 @@
+<h1 class="page-title">{{ 'policyAdmin.title' | translate }}</h1>
+
+@if (editingPolicy(); as policy) {
+  <section class="surface-card panel">
+    <h2>{{ 'policyAdmin.editTitle' | translate }}: {{ policy.role }}</h2>
+
+    <form (ngSubmit)="saveEdit()" #policyForm="ngForm" class="policy-form">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'policyAdmin.loanDurationDays' | translate }}</mat-label>
+        <input matInput type="number" min="1" name="loanDurationDays" [(ngModel)]="editForm.loanDurationDays" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'policyAdmin.maxConcurrentLoans' | translate }}</mat-label>
+        <input matInput type="number" min="1" name="maxConcurrentLoans" [(ngModel)]="editForm.maxConcurrentLoans" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'policyAdmin.maxRenewals' | translate }}</mat-label>
+        <input matInput type="number" min="0" name="maxRenewals" [(ngModel)]="editForm.maxRenewals" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'policyAdmin.finePerDayXaf' | translate }}</mat-label>
+        <input matInput type="number" min="0" name="finePerDayXaf" [(ngModel)]="editForm.finePerDayXaf" required />
+      </mat-form-field>
+
+      <div class="edit-actions">
+        <button mat-flat-button color="primary" type="submit" [disabled]="policyForm.invalid">
+          {{ 'policyAdmin.save' | translate }}
+        </button>
+        <button mat-button type="button" (click)="cancelEdit()">
+          {{ 'policyAdmin.cancel' | translate }}
+        </button>
+      </div>
+    </form>
+  </section>
+}
+
+<section class="surface-card panel">
+  <h2>{{ 'policyAdmin.listTitle' | translate }}</h2>
+  <table mat-table [dataSource]="policies()" class="full-width">
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>{{ 'policyAdmin.role' | translate }}</th>
+      <td mat-cell *matCellDef="let policy">
+        <span class="role-chip">{{ policy.role }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="loanDurationDays">
+      <th mat-header-cell *matHeaderCellDef>{{ 'policyAdmin.loanDurationDays' | translate }}</th>
+      <td mat-cell *matCellDef="let policy">{{ policy.loanDurationDays }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="maxConcurrentLoans">
+      <th mat-header-cell *matHeaderCellDef>{{ 'policyAdmin.maxConcurrentLoans' | translate }}</th>
+      <td mat-cell *matCellDef="let policy">{{ policy.maxConcurrentLoans }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="maxRenewals">
+      <th mat-header-cell *matHeaderCellDef>{{ 'policyAdmin.maxRenewals' | translate }}</th>
+      <td mat-cell *matCellDef="let policy">{{ policy.maxRenewals }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="finePerDayXaf">
+      <th mat-header-cell *matHeaderCellDef>{{ 'policyAdmin.finePerDayXaf' | translate }}</th>
+      <td mat-cell *matCellDef="let policy">{{ policy.finePerDayXaf }} XAF</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let policy">
+        <button mat-icon-button (click)="startEdit(policy)" [attr.aria-label]="'policyAdmin.edit' | translate"
+                [matTooltip]="'policyAdmin.edit' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</section>

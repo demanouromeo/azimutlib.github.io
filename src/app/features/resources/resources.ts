@@ -15,7 +15,9 @@ const TYPE_ICONS: Record<ResourceType, string> = {
   QUIZ: 'quiz',
   NOTES: 'sticky_note_2',
   DOCUMENT: 'description',
-  VIDEO: 'movie'
+  VIDEO: 'movie',
+  THESIS: 'school',
+  EXAM_PAPER: 'assignment'
 };
 
 @Component({
@@ -31,7 +33,7 @@ export class Resources implements OnInit {
   loading = signal(false);
   uploading = signal(false);
 
-  readonly resourceTypes: ResourceType[] = ['QUIZ', 'NOTES', 'DOCUMENT', 'VIDEO'];
+  readonly resourceTypes: ResourceType[] = ['QUIZ', 'NOTES', 'DOCUMENT', 'VIDEO', 'THESIS', 'EXAM_PAPER'];
 
   filterCategoryId: number | null = null;
   filterType: ResourceType | null = null;
@@ -41,6 +43,8 @@ export class Resources implements OnInit {
   uploadType: ResourceType = 'DOCUMENT';
   uploadCategoryId: number | null = null;
   uploadFile: File | null = null;
+  uploadAuthor = '';
+  uploadAcademicYear = '';
   newCategoryName = '';
 
   constructor(
@@ -55,17 +59,24 @@ export class Resources implements OnInit {
   }
 
   canManage(): boolean {
-    return this.authService.hasAnyRole('LECTURER', 'ADMIN');
+    return this.authService.hasAnyRole('LECTURER', 'LIBRARIAN', 'ADMIN');
   }
 
   canDelete(resource: TeachingResource): boolean {
     const user = this.authService.currentUser();
     if (!user) return false;
-    return user.role === 'ADMIN' || (user.role === 'LECTURER' && resource.uploadedById === user.id);
+    return (
+      user.role === 'ADMIN' ||
+      ((user.role === 'LECTURER' || user.role === 'LIBRARIAN') && resource.uploadedById === user.id)
+    );
   }
 
   typeIcon(type: ResourceType): string {
     return TYPE_ICONS[type];
+  }
+
+  isAcademicType(type: ResourceType): boolean {
+    return type === 'THESIS' || type === 'EXAM_PAPER';
   }
 
   loadCategories(): void {
@@ -113,7 +124,9 @@ export class Resources implements OnInit {
         title: this.uploadTitle,
         description: this.uploadDescription || undefined,
         type: this.uploadType,
-        categoryId: this.uploadCategoryId
+        categoryId: this.uploadCategoryId,
+        author: this.uploadAuthor || undefined,
+        academicYear: this.uploadAcademicYear || undefined
       })
       .subscribe({
         next: () => {
@@ -122,6 +135,8 @@ export class Resources implements OnInit {
           this.uploadTitle = '';
           this.uploadDescription = '';
           this.uploadFile = null;
+          this.uploadAuthor = '';
+          this.uploadAcademicYear = '';
           this.loadResources();
         },
         error: (err) => {

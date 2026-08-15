@@ -1,0 +1,98 @@
+.page-title {
+  margin: 0 0 20px;
+}
+
+.panel {
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0 0 16px;
+    font-size: 1.05rem;
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.action-btn {
+  height: 42px;
+  padding: 0 24px;
+  border-radius: var(--brand-radius-sm);
+  margin-top: 8px;
+}
+
+.preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 0 0 12px;
+  border-radius: var(--brand-radius-sm);
+  background: var(--brand-bg);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.preview-error {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-radius: var(--brand-radius-sm);
+  background: #fdeaea;
+  color: #c0392b;
+  font-size: 0.82rem;
+}
+
+.role-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+}
+
+.type-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #eef0f6;
+  color: var(--brand-ink-soft);
+
+  &.type-late {
+    background: #fff3e0;
+    color: #b5690a;
+  }
+
+  &.type-lost,
+  &.type-damage {
+    background: #fdeaea;
+    color: #c0392b;
+  }
+
+  &.type-manual {
+    background: var(--brand-primary-light);
+    color: var(--brand-primary);
+  }
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #fdeaea;
+  color: #c0392b;
+
+  &.status-paid {
+    background: #e6f6ee;
+    color: #1f9d55;
+  }
+}

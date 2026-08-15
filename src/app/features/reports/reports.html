@@ -1,0 +1,77 @@
+<h1 class="page-title">{{ 'reports.title' | translate }}</h1>
+
+<div class="stat-grid">
+  <article class="stat-card surface-card">
+    <div class="stat-header">
+      <mat-icon class="stat-icon">receipt_long</mat-icon>
+      <div>
+        <p class="stat-value">{{ finesSummary()?.unpaidCount ?? '—' }}</p>
+        <p class="stat-label">{{ 'reports.unpaidFinesCount' | translate }}</p>
+      </div>
+    </div>
+    <p class="stat-sub">{{ finesSummary()?.totalUnpaidXaf ?? 0 }} XAF</p>
+  </article>
+
+  <article class="stat-card surface-card">
+    <div class="stat-header">
+      <mat-icon class="stat-icon">check_circle</mat-icon>
+      <div>
+        <p class="stat-value">{{ finesSummary()?.paidCount ?? '—' }}</p>
+        <p class="stat-label">{{ 'reports.paidFinesCount' | translate }}</p>
+      </div>
+    </div>
+    <p class="stat-sub">{{ finesSummary()?.totalPaidXaf ?? 0 }} XAF</p>
+  </article>
+
+  <article class="stat-card surface-card chart-card">
+    <p class="stat-label">{{ 'reports.topBorrowedBooks' | translate }}</p>
+    <div class="stat-chart">
+      <canvas baseChart [type]="topBooksChartType" [data]="topBooksChartData" [options]="topBooksChartOptions"></canvas>
+    </div>
+  </article>
+
+  <article class="stat-card surface-card chart-card">
+    <p class="stat-label">{{ 'reports.loansPerMonth' | translate }}</p>
+    <div class="stat-chart">
+      <canvas baseChart [type]="loansPerMonthChartType" [data]="loansPerMonthChartData" [options]="loansPerMonthChartOptions"></canvas>
+    </div>
+  </article>
+</div>
+
+<section class="surface-card panel">
+  <h2>{{ 'reports.overdueLoans' | translate }}</h2>
+  <table mat-table [dataSource]="overdueLoans()" class="full-width">
+    <ng-container matColumnDef="inventoryCode">
+      <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.code' | translate }}</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.inventoryCode }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="bookTitle">
+      <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.book' | translate }}</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.bookTitle }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="borrowerName">
+      <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.borrower' | translate }}</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.borrowerName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.due' | translate }}</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.dueDate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.status' | translate }}</th>
+      <td mat-cell *matCellDef="let loan">
+        <span class="status-chip" [class]="'status-' + loan.status.toLowerCase()">{{ loan.status }}</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="overdueColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: overdueColumns"></tr>
+  </table>
+  @if (overdueLoans().length === 0) {
+    <p class="empty-state">{{ 'reports.noOverdueLoans' | translate }}</p>
+  }
+</section>

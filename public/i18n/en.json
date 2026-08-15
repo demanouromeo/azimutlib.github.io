@@ -12,6 +12,9 @@
     "resources": "Resources",
     "desk": "Circulation Desk",
     "admin": "Users",
+    "policies": "Loan Policies",
+    "fines": "Fines",
+    "reports": "Reports",
     "language": "Language",
     "logout": "Log out",
     "search": "Search books, authors...",
@@ -63,11 +66,26 @@
   "desk": {
     "issueTitle": "Issue a book",
     "returnTitle": "Process a return",
-    "bookId": "Book ID",
-    "borrowerId": "Borrower ID",
-    "loanId": "Loan ID",
+    "issueCode": "Copy inventory code",
+    "borrowerMatricule": "Borrower matricule",
+    "returnCode": "Copy inventory code",
     "issue": "Issue",
-    "return": "Return"
+    "return": "Return",
+    "notFound": "Not found",
+    "outcomeNormal": "Normal",
+    "outcomeLost": "Mark lost",
+    "outcomeDamaged": "Mark damaged",
+    "feeAmount": "Replacement/damage fee",
+    "feeRequired": "Enter a fee amount for a lost or damaged copy",
+    "activeLoansTitle": "Active loans",
+    "noActiveLoans": "No active loans",
+    "table": {
+      "code": "Code",
+      "book": "Book",
+      "borrower": "Borrower",
+      "due": "Due",
+      "status": "Status"
+    }
   },
   "admin": {
     "createUser": "Create user",
@@ -94,11 +112,50 @@
     "cannotModifySelf": "You cannot perform this action on your own account",
     "confirmDelete": "Delete {{name}}? This cannot be undone."
   },
+  "policyAdmin": {
+    "title": "Loan Policies",
+    "editTitle": "Edit policy",
+    "listTitle": "Policies by role",
+    "role": "Role",
+    "loanDurationDays": "Loan duration (days)",
+    "maxConcurrentLoans": "Max concurrent loans",
+    "maxRenewals": "Max renewals",
+    "finePerDayXaf": "Fine per day (XAF)",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit"
+  },
+  "finesAdmin": {
+    "title": "Fines",
+    "issueTitle": "Issue a fine",
+    "listTitle": "All fines",
+    "borrowerMatricule": "Borrower matricule",
+    "borrower": "Borrower",
+    "type": "Type",
+    "reason": "Reason",
+    "amount": "Amount",
+    "status": "Status",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "issue": "Issue fine",
+    "markPaid": "Mark paid"
+  },
+  "reports": {
+    "title": "Reports",
+    "unpaidFinesCount": "Unpaid fines",
+    "paidFinesCount": "Paid fines",
+    "topBorrowedBooks": "Most borrowed books",
+    "loansPerMonth": "Loans per month",
+    "overdueLoans": "Overdue & active loans",
+    "noOverdueLoans": "No active or overdue loans"
+  },
   "resources": {
     "title": "Teaching Resources",
     "uploadTitle": "Drop a resource",
     "resourceTitle": "Title",
     "description": "Description",
+    "author": "Author",
+    "academicYear": "Academic year",
     "type": "Type",
     "category": "Subject",
     "newCategory": "New subject",
@@ -114,7 +171,9 @@
       "QUIZ": "Quiz",
       "NOTES": "Notes",
       "DOCUMENT": "Document",
-      "VIDEO": "Video"
+      "VIDEO": "Video",
+      "THESIS": "Thesis/Dissertation",
+      "EXAM_PAPER": "Past exam paper"
     }
   },
   "profile": {

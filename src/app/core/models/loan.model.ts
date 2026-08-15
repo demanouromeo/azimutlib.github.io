@@ -1,4 +1,5 @@
 export type LoanStatus = 'ACTIVE' | 'RETURNED' | 'OVERDUE' | 'LOST';
+export type ReturnOutcome = 'NORMAL' | 'LOST' | 'DAMAGED';
 
 export interface Loan {
   id: number;
@@ -25,9 +26,14 @@ export interface Reservation {
   expiresAt: string | null;
 }
 
+export type FineType = 'LATE' | 'LOST' | 'DAMAGE' | 'MANUAL';
+
 export interface Fine {
   id: number;
-  loanId: number;
+  loanId: number | null;
+  userId: number;
+  userName: string;
+  type: FineType;
   amountXaf: number;
   reason: string;
   paid: boolean;

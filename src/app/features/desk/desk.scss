@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .panel {
@@ -54,4 +55,125 @@
   height: 44px;
   border-radius: var(--brand-radius-sm);
   margin-top: 8px;
+}
+
+.preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 0 0 12px;
+  border-radius: var(--brand-radius-sm);
+  background: var(--brand-bg);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.preview-error {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-radius: var(--brand-radius-sm);
+  background: #fdeaea;
+  color: #c0392b;
+  font-size: 0.82rem;
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: #eef0f6;
+  color: var(--brand-ink-soft);
+  flex: 0 0 auto;
+
+  &.status-available,
+  &.status-active {
+    background: #e6f6ee;
+    color: #1f9d55;
+  }
+
+  &.status-borrowed,
+  &.status-reserved {
+    background: var(--brand-primary-light);
+    color: var(--brand-primary);
+  }
+
+  &.status-overdue,
+  &.status-lost {
+    background: #fdeaea;
+    color: #c0392b;
+  }
+
+  &.status-damaged,
+  &.status-in_repair {
+    background: #fff3e0;
+    color: #b5690a;
+  }
+
+  &.status-returned {
+    background: #eef0f6;
+    color: var(--brand-ink-soft);
+  }
+}
+
+.role-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+  flex: 0 0 auto;
+}
+
+.outcome-toggle {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.outcome-btn {
+  flex: 1;
+  height: 36px;
+  border-radius: var(--brand-radius-sm);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: transparent;
+  color: var(--brand-ink-soft);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &.active {
+    background: var(--brand-primary-light);
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+  }
+
+  &.outcome-lost.active,
+  &.outcome-damaged.active {
+    background: #fdeaea;
+    border-color: #c0392b;
+    color: #c0392b;
+  }
+}
+
+.active-loans-panel {
+  h2 {
+    margin: 0 0 16px;
+    font-size: 1.05rem;
+  }
+}
+
+.empty-state {
+  color: var(--brand-ink-soft);
+  text-align: center;
+  padding: 16px 0;
 }

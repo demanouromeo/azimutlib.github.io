@@ -1,0 +1,82 @@
+<h1 class="page-title">{{ 'finesAdmin.title' | translate }}</h1>
+
+<section class="surface-card panel">
+  <h2>{{ 'finesAdmin.issueTitle' | translate }}</h2>
+
+  <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+    <mat-label>{{ 'finesAdmin.borrowerMatricule' | translate }}</mat-label>
+    <input matInput [(ngModel)]="matricule" (blur)="lookupBorrower()" (keyup.enter)="lookupBorrower()" />
+  </mat-form-field>
+  @if (borrowerPreview(); as borrower) {
+    <div class="preview-row">
+      <span>{{ borrower.fullName }}</span>
+      <span class="role-chip">{{ borrower.role }}</span>
+    </div>
+  } @else if (borrowerError()) {
+    <p class="preview-error">{{ borrowerError() }}</p>
+  }
+
+  <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+    <mat-label>{{ 'finesAdmin.amount' | translate }}</mat-label>
+    <input matInput type="number" min="1" [(ngModel)]="amountXaf" />
+    <span matTextSuffix>XAF</span>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+    <mat-label>{{ 'finesAdmin.reason' | translate }}</mat-label>
+    <input matInput [(ngModel)]="reason" />
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" class="action-btn" [disabled]="busy() || !borrowerPreview()" (click)="createFine()">
+    {{ 'finesAdmin.issue' | translate }}
+  </button>
+</section>
+
+<section class="surface-card panel">
+  <h2>{{ 'finesAdmin.listTitle' | translate }}</h2>
+  <table mat-table [dataSource]="fines()" class="full-width">
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finesAdmin.borrower' | translate }}</th>
+      <td mat-cell *matCellDef="let fine">{{ fine.userName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finesAdmin.type' | translate }}</th>
+      <td mat-cell *matCellDef="let fine">
+        <span class="type-chip" [class]="'type-' + fine.type.toLowerCase()">{{ fine.type }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="reason">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finesAdmin.reason' | translate }}</th>
+      <td mat-cell *matCellDef="let fine">{{ fine.reason }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amountXaf">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finesAdmin.amount' | translate }}</th>
+      <td mat-cell *matCellDef="let fine">{{ fine.amountXaf }} XAF</td>
+    </ng-container>
+
+    <ng-container matColumnDef="paid">
+      <th mat-header-cell *matHeaderCellDef>{{ 'finesAdmin.status' | translate }}</th>
+      <td mat-cell *matCellDef="let fine">
+        <span class="status-chip" [class.status-paid]="fine.paid">{{ fine.paid ? ('finesAdmin.paid' | translate) : ('finesAdmin.unpaid' | translate) }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let fine">
+        @if (!fine.paid) {
+          <button mat-icon-button (click)="markPaid(fine)" [attr.aria-label]="'finesAdmin.markPaid' | translate"
+                  [matTooltip]="'finesAdmin.markPaid' | translate">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</section>

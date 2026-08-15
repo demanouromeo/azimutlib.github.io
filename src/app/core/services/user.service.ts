@@ -37,6 +37,10 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
+  getByMatricule(matricule: string): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/by-matricule/${matricule}`);
+  }
+
   create(request: CreateUserRequest): Observable<User> {
     return this.http.post<User>(this.baseUrl, request);
   }

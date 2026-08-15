@@ -10,6 +10,8 @@ export interface UploadResourceRequest {
   description?: string;
   type: ResourceType;
   categoryId: number;
+  author?: string;
+  academicYear?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -33,6 +35,8 @@ export class ResourceService {
     if (request.description) formData.append('description', request.description);
     formData.append('type', request.type);
     formData.append('categoryId', String(request.categoryId));
+    if (request.author) formData.append('author', request.author);
+    if (request.academicYear) formData.append('academicYear', request.academicYear);
     return this.http.post<TeachingResource>(this.baseUrl, formData);
   }
 

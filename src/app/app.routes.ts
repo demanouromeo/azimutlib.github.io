@@ -28,6 +28,21 @@ export const routes: Routes = [
         canActivate: [roleGuard(['ADMIN'])],
         loadComponent: () => import('./features/admin/users/user-admin').then((m) => m.UserAdmin)
       },
+      {
+        path: 'admin/policies',
+        canActivate: [roleGuard(['LIBRARIAN', 'ADMIN'])],
+        loadComponent: () => import('./features/admin/policy/policy-admin').then((m) => m.PolicyAdmin)
+      },
+      {
+        path: 'admin/fines',
+        canActivate: [roleGuard(['LIBRARIAN', 'ADMIN'])],
+        loadComponent: () => import('./features/admin/fines/fines-admin').then((m) => m.FinesAdmin)
+      },
+      {
+        path: 'reports',
+        canActivate: [roleGuard(['LIBRARIAN', 'ADMIN'])],
+        loadComponent: () => import('./features/reports/reports').then((m) => m.Reports)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

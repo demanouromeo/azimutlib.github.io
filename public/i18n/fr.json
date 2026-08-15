@@ -12,6 +12,9 @@
     "resources": "Ressources",
     "desk": "Comptoir de Prêt",
     "admin": "Utilisateurs",
+    "policies": "Politiques de Prêt",
+    "fines": "Amendes",
+    "reports": "Rapports",
     "language": "Langue",
     "logout": "Déconnexion",
     "search": "Rechercher livres, auteurs...",
@@ -63,11 +66,26 @@
   "desk": {
     "issueTitle": "Prêter un livre",
     "returnTitle": "Traiter un retour",
-    "bookId": "ID du livre",
-    "borrowerId": "ID de l'emprunteur",
-    "loanId": "ID du prêt",
+    "issueCode": "Code d'inventaire de l'exemplaire",
+    "borrowerMatricule": "Matricule de l'emprunteur",
+    "returnCode": "Code d'inventaire de l'exemplaire",
     "issue": "Prêter",
-    "return": "Retourner"
+    "return": "Retourner",
+    "notFound": "Introuvable",
+    "outcomeNormal": "Normal",
+    "outcomeLost": "Marquer perdu",
+    "outcomeDamaged": "Marquer endommagé",
+    "feeAmount": "Frais de remplacement/dommage",
+    "feeRequired": "Saisissez un montant de frais pour un exemplaire perdu ou endommagé",
+    "activeLoansTitle": "Prêts en cours",
+    "noActiveLoans": "Aucun prêt en cours",
+    "table": {
+      "code": "Code",
+      "book": "Livre",
+      "borrower": "Emprunteur",
+      "due": "Échéance",
+      "status": "Statut"
+    }
   },
   "admin": {
     "createUser": "Créer un utilisateur",
@@ -94,11 +112,50 @@
     "cannotModifySelf": "Vous ne pouvez pas effectuer cette action sur votre propre compte",
     "confirmDelete": "Supprimer {{name}} ? Cette action est irréversible."
   },
+  "policyAdmin": {
+    "title": "Politiques de Prêt",
+    "editTitle": "Modifier la politique",
+    "listTitle": "Politiques par rôle",
+    "role": "Rôle",
+    "loanDurationDays": "Durée du prêt (jours)",
+    "maxConcurrentLoans": "Prêts simultanés max.",
+    "maxRenewals": "Renouvellements max.",
+    "finePerDayXaf": "Amende par jour (XAF)",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier"
+  },
+  "finesAdmin": {
+    "title": "Amendes",
+    "issueTitle": "Émettre une amende",
+    "listTitle": "Toutes les amendes",
+    "borrowerMatricule": "Matricule de l'emprunteur",
+    "borrower": "Emprunteur",
+    "type": "Type",
+    "reason": "Motif",
+    "amount": "Montant",
+    "status": "Statut",
+    "paid": "Payée",
+    "unpaid": "Impayée",
+    "issue": "Émettre l'amende",
+    "markPaid": "Marquer payée"
+  },
+  "reports": {
+    "title": "Rapports",
+    "unpaidFinesCount": "Amendes impayées",
+    "paidFinesCount": "Amendes payées",
+    "topBorrowedBooks": "Livres les plus empruntés",
+    "loansPerMonth": "Prêts par mois",
+    "overdueLoans": "Prêts en cours et en retard",
+    "noOverdueLoans": "Aucun prêt en cours ou en retard"
+  },
   "resources": {
     "title": "Ressources Pédagogiques",
     "uploadTitle": "Déposer une ressource",
     "resourceTitle": "Titre",
     "description": "Description",
+    "author": "Auteur",
+    "academicYear": "Année académique",
     "type": "Type",
     "category": "Matière",
     "newCategory": "Nouvelle matière",
@@ -114,7 +171,9 @@
       "QUIZ": "Quiz",
       "NOTES": "Notes",
       "DOCUMENT": "Document",
-      "VIDEO": "Vidéo"
+      "VIDEO": "Vidéo",
+      "THESIS": "Mémoire/Thèse",
+      "EXAM_PAPER": "Épreuve d'examen"
     }
   },
   "profile": {

@@ -39,7 +39,10 @@ export class Shell {
     { path: '/my-loans', icon: 'bookmark_border', label: 'nav.myLoans' },
     { path: '/resources', icon: 'folder_open', label: 'nav.resources' },
     { path: '/desk', icon: 'point_of_sale', label: 'nav.desk', roles: ['LIBRARIAN', 'ADMIN'] },
-    { path: '/admin/users', icon: 'group', label: 'nav.admin', roles: ['ADMIN'] }
+    { path: '/admin/users', icon: 'group', label: 'nav.admin', roles: ['ADMIN'] },
+    { path: '/admin/policies', icon: 'tune', label: 'nav.policies', roles: ['LIBRARIAN', 'ADMIN'] },
+    { path: '/admin/fines', icon: 'receipt_long', label: 'nav.fines', roles: ['LIBRARIAN', 'ADMIN'] },
+    { path: '/reports', icon: 'bar_chart', label: 'nav.reports', roles: ['LIBRARIAN', 'ADMIN'] }
   ];
 
   searchQuery = '';

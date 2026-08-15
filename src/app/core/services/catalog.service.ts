@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Book, Page } from '../models/book.model';
+import { Book, BookCopy, Page } from '../models/book.model';
 
 export interface CreateBookRequest {
   isbn?: string;
@@ -47,5 +47,9 @@ export class CatalogService {
 
   listCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.baseUrl}/categories`);
+  }
+
+  getCopyByCode(inventoryCode: string): Observable<BookCopy> {
+    return this.http.get<BookCopy>(`${this.baseUrl}/copies/${inventoryCode}`);
   }
 }

@@ -31,6 +31,18 @@
         <mat-label>{{ 'resources.description' | translate }}</mat-label>
         <input matInput [(ngModel)]="uploadDescription" />
       </mat-form-field>
+
+      @if (isAcademicType(uploadType)) {
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'resources.author' | translate }}</mat-label>
+          <input matInput [(ngModel)]="uploadAuthor" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'resources.academicYear' | translate }}</mat-label>
+          <input matInput placeholder="2024/2025" [(ngModel)]="uploadAcademicYear" />
+        </mat-form-field>
+      }
     </div>
 
     <div class="quick-add-category">
@@ -82,6 +94,9 @@
         <div class="resource-body">
           <h3>{{ resource.title }}</h3>
           <p class="meta">{{ resource.categoryName }} &middot; {{ formatSize(resource.fileSizeBytes) }}</p>
+          @if (resource.author) {
+            <p class="meta">{{ resource.author }}@if (resource.academicYear) { &middot; {{ resource.academicYear }} }</p>
+          }
           <p class="uploader">{{ 'resources.by' | translate }} {{ resource.uploadedByName }}</p>
           @if (resource.description) {
             <p class="description">{{ resource.description }}</p>

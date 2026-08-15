@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Loan } from '../models/loan.model';
+import { Loan, ReturnOutcome } from '../models/loan.model';
 
 @Injectable({ providedIn: 'root' })
 export class LoanService {
@@ -18,12 +18,24 @@ export class LoanService {
     return this.http.get<Loan[]>(`${this.baseUrl}/user/${userId}`);
   }
 
-  issue(bookId: number, borrowerId: number): Observable<Loan> {
-    return this.http.post<Loan>(this.baseUrl, { bookId, borrowerId });
+  activeLoans(): Observable<Loan[]> {
+    return this.http.get<Loan[]>(`${this.baseUrl}/active`);
+  }
+
+  activeLoanByCode(inventoryCode: string): Observable<Loan> {
+    return this.http.get<Loan>(`${this.baseUrl}/active-by-code/${inventoryCode}`);
+  }
+
+  issue(inventoryCode: string, borrowerMatricule: string): Observable<Loan> {
+    return this.http.post<Loan>(this.baseUrl, { inventoryCode, borrowerMatricule });
   }
 
   returnLoan(loanId: number): Observable<Loan> {
     return this.http.post<Loan>(`${this.baseUrl}/${loanId}/return`, {});
+  }
+
+  returnByCode(inventoryCode: string, outcome: ReturnOutcome, feeXaf?: number): Observable<Loan> {
+    return this.http.post<Loan>(`${this.baseUrl}/return-by-code`, { inventoryCode, outcome, feeXaf });
   }
 
   renew(loanId: number): Observable<Loan> {
