@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://quincallerie-mvogt-backend-production-fbc4.up.railway.app/api'
+  apiBaseUrl: 'https://azimutlib-backend-production-6527.up.railway.app/api',
 };
