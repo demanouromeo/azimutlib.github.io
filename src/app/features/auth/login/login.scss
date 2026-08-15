@@ -1,16 +1,105 @@
 .login-page {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 16px;
-  background: radial-gradient(circle at top left, #ede9fd 0%, var(--brand-bg) 55%);
+  overflow: hidden;
+  background: var(--brand-bg);
+}
+
+.login-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bg-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.8s ease-in-out;
+  will-change: opacity, transform;
+
+  &.active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  &.kb-zoom-in.active {
+    animation: kb-zoom-in 6.5s ease-in-out forwards;
+  }
+
+  &.kb-zoom-out.active {
+    animation: kb-zoom-out 6.5s ease-in-out forwards;
+  }
+
+  &.kb-pan-left.active {
+    animation: kb-pan-left 6.5s ease-in-out forwards;
+  }
+
+  &.kb-pan-right.active {
+    animation: kb-pan-right 6.5s ease-in-out forwards;
+  }
+}
+
+@keyframes kb-zoom-in {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes kb-zoom-out {
+  from {
+    transform: scale(1.15);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes kb-pan-left {
+  from {
+    transform: scale(1.1) translateX(2.5%);
+  }
+  to {
+    transform: scale(1.1) translateX(-2.5%);
+  }
+}
+
+@keyframes kb-pan-right {
+  from {
+    transform: scale(1.1) translateX(-2.5%);
+  }
+  to {
+    transform: scale(1.1) translateX(2.5%);
+  }
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(135deg, rgba(43, 28, 92, 0.72) 0%, rgba(108, 93, 211, 0.55) 45%, rgba(20, 15, 45, 0.75) 100%);
 }
 
 .login-card {
+  position: relative;
+  z-index: 3;
   width: 100%;
   max-width: 380px;
   padding: 36px 32px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(20, 15, 45, 0.35);
 }
 
 .brand {

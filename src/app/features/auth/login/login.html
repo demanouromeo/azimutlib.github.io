@@ -1,4 +1,16 @@
 <div class="login-page">
+  <div class="login-bg">
+    @for (slide of bgSlides; track slide.url; let i = $index) {
+      <div
+        class="bg-slide"
+        [class]="slide.variant"
+        [class.active]="i === activeSlide()"
+        [style.background-image]="'url(' + slide.url + ')'"
+      ></div>
+    }
+    <div class="bg-overlay"></div>
+  </div>
+
   <div class="login-card surface-card">
     <div class="brand">
       <img class="brand-logo" src="assets/logo.png" [alt]="'app.shortTitle' | translate" />
