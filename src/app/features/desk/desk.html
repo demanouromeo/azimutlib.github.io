@@ -91,6 +91,7 @@
 
 <section class="surface-card panel active-loans-panel">
   <h2>{{ 'desk.activeLoansTitle' | translate }}</h2>
+  <div class="table-scroll">
   <table mat-table [dataSource]="activeLoans()" class="full-width">
     <ng-container matColumnDef="inventoryCode">
       <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.code' | translate }}</th>
@@ -132,6 +133,7 @@
     <tr mat-header-row *matHeaderRowDef="activeLoansColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: activeLoansColumns"></tr>
   </table>
+  </div>
   @if (activeLoans().length === 0) {
     <p class="empty-state">{{ 'desk.noActiveLoans' | translate }}</p>
   }

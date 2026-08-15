@@ -30,6 +30,10 @@
   }
 }
 
+.greeting-name {
+  margin-left: 0.35em;
+}
+
 .hero-cta {
   --mdc-outlined-button-label-text-color: #ffffff;
   --mdc-outlined-button-outline-color: transparent;
@@ -46,6 +50,8 @@
     box-shadow: 0 8px 20px rgba(255, 79, 139, 0.45);
     transform: translateY(-1px);
   }
+
+  white-space: nowrap;
 }
 
 .hero-illustration {
@@ -128,6 +134,18 @@
   color: var(--brand-ink-soft);
 }
 
+.stat-value-skeleton {
+  width: 48px;
+  height: 1.6rem;
+  margin: 0;
+}
+
+.chart-skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--brand-radius-sm);
+}
+
 .link-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -151,5 +169,38 @@
 
   mat-icon {
     color: var(--brand-primary);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+    gap: 12px;
+  }
+
+  // The 88px illustration icon is what was squeezing the heading/button into
+  // an overlapping wrap on narrow screens -- drop it below that width.
+  .hero-illustration,
+  .hero-deco {
+    display: none;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .greeting-prefix {
+    display: block;
+  }
+
+  .greeting-name {
+    display: block;
+    margin-left: 0;
   }
 }

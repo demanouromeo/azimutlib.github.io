@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, HostListener, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,7 @@ interface NavItem {
   templateUrl: './shell.html',
   styleUrl: './shell.scss'
 })
-export class Shell {
+export class Shell implements AfterViewInit {
   readonly navItems: NavItem[] = [
     { path: '/dashboard', icon: 'space_dashboard', label: 'nav.dashboard' },
     { path: '/catalog', icon: 'auto_stories', label: 'nav.catalog' },
@@ -46,6 +46,8 @@ export class Shell {
   ];
 
   searchQuery = '';
+  menuOpen = signal(false);
+  showScrollTop = signal(false);
 
   constructor(
     readonly authService: AuthService,
@@ -53,12 +55,33 @@ export class Shell {
     private readonly router: Router
   ) {}
 
+  ngAfterViewInit(): void {
+    // A page refresh can land with the browser having already restored a
+    // scrolled-down position, which fires no 'scroll' event on its own —
+    // check once on load so the FAB doesn't wait for the user to scroll again.
+    this.onWindowScroll();
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    this.showScrollTop.set(window.scrollY > 320);
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   visibleNavItems(): NavItem[] {
     return this.navItems.filter((item) => !item.roles || this.authService.hasAnyRole(...item.roles));
   }
 
   searchCatalog(): void {
     this.router.navigate(['/catalog'], { queryParams: { query: this.searchQuery || null } });
+    this.menuOpen.set(false);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
   }
 
   useLanguage(lang: 'en' | 'fr'): void {

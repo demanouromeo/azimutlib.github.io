@@ -22,6 +22,7 @@ export class CatalogList implements OnInit {
   books = signal<Book[]>([]);
   loading = signal(false);
 
+  readonly skeletonRows = Array.from({ length: 8 }, (_, i) => i);
   private readonly gradientCount = 6;
 
   constructor(

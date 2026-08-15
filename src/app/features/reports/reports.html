@@ -40,6 +40,7 @@
 
 <section class="surface-card panel">
   <h2>{{ 'reports.overdueLoans' | translate }}</h2>
+  <div class="table-scroll">
   <table mat-table [dataSource]="overdueLoans()" class="full-width">
     <ng-container matColumnDef="inventoryCode">
       <th mat-header-cell *matHeaderCellDef>{{ 'desk.table.code' | translate }}</th>
@@ -71,6 +72,7 @@
     <tr mat-header-row *matHeaderRowDef="overdueColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: overdueColumns"></tr>
   </table>
+  </div>
   @if (overdueLoans().length === 0) {
     <p class="empty-state">{{ 'reports.noOverdueLoans' | translate }}</p>
   }

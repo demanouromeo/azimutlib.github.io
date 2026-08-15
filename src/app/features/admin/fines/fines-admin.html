@@ -34,6 +34,7 @@
 
 <section class="surface-card panel">
   <h2>{{ 'finesAdmin.listTitle' | translate }}</h2>
+  <div class="table-scroll">
   <table mat-table [dataSource]="fines()" class="full-width">
     <ng-container matColumnDef="userName">
       <th mat-header-cell *matHeaderCellDef>{{ 'finesAdmin.borrower' | translate }}</th>
@@ -79,4 +80,5 @@
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
     <tr mat-row *matRowDef="let row; columns: columns"></tr>
   </table>
+  </div>
 </section>

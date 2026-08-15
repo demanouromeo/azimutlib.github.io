@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { TranslatePipe } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
 import { LoanService } from '../../core/services/loan.service';
 import { FineService } from '../../core/services/fine.service';
 import { ReservationService } from '../../core/services/reservation.service';
@@ -20,7 +21,10 @@ export class MyLoans implements OnInit {
   loans = signal<Loan[]>([]);
   fines = signal<Fine[]>([]);
   reservations = signal<Reservation[]>([]);
+  loading = signal(false);
   loanColumns = ['bookTitle', 'borrowDate', 'dueDate', 'status', 'actions'];
+  readonly skeletonLoanRows = Array.from({ length: 3 }, (_, i) => i);
+  readonly skeletonListRows = Array.from({ length: 3 }, (_, i) => i);
 
   constructor(
     private readonly loanService: LoanService,
@@ -34,9 +38,20 @@ export class MyLoans implements OnInit {
   }
 
   refresh(): void {
-    this.loanService.myLoans().subscribe((loans) => this.loans.set(loans));
-    this.fineService.myUnpaidFines().subscribe((fines) => this.fines.set(fines));
-    this.reservationService.myReservations().subscribe((reservations) => this.reservations.set(reservations));
+    this.loading.set(true);
+    forkJoin({
+      loans: this.loanService.myLoans(),
+      fines: this.fineService.myUnpaidFines(),
+      reservations: this.reservationService.myReservations()
+    }).subscribe({
+      next: ({ loans, fines, reservations }) => {
+        this.loans.set(loans);
+        this.fines.set(fines);
+        this.reservations.set(reservations);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
   renew(loan: Loan): void {

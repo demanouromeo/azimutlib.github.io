@@ -18,7 +18,10 @@
     "language": "Language",
     "logout": "Log out",
     "search": "Search books, authors...",
-    "profile": "My Profile"
+    "profile": "My Profile",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "scrollTop": "Back to top"
   },
   "login": {
     "title": "Sign in",
@@ -29,7 +32,7 @@
     "error": "Invalid matricule or password"
   },
   "dashboard": {
-    "greeting": "Welcome back, {{name}}",
+    "greetingPrefix": "Welcome back,",
     "heroSubtitle": "Here's a quick overview of the library and your account.",
     "heroCta": "Browse catalog",
     "totalBooks": "Books in catalog",
@@ -44,7 +47,7 @@
     "available": "Available",
     "reserve": "Reserve",
     "noResults": "No books found",
-    "greeting": "Hi, {{name}}",
+    "greetingPrefix": "Hi,",
     "heroSubtitle": "The library serves as a welcoming home for knowledge seekers and avid readers alike.",
     "heroCta": "View my loans",
     "popular": "Available now",

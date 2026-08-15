@@ -18,7 +18,10 @@
     "language": "Langue",
     "logout": "Déconnexion",
     "search": "Rechercher livres, auteurs...",
-    "profile": "Mon Profil"
+    "profile": "Mon Profil",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "scrollTop": "Retour en haut"
   },
   "login": {
     "title": "Connexion",
@@ -29,7 +32,7 @@
     "error": "Matricule ou mot de passe invalide"
   },
   "dashboard": {
-    "greeting": "Content de vous revoir, {{name}}",
+    "greetingPrefix": "Content de vous revoir,",
     "heroSubtitle": "Voici un aperçu rapide de la bibliothèque et de votre compte.",
     "heroCta": "Parcourir le catalogue",
     "totalBooks": "Livres au catalogue",
@@ -44,7 +47,7 @@
     "available": "Disponible",
     "reserve": "Réserver",
     "noResults": "Aucun livre trouvé",
-    "greeting": "Bonjour, {{name}}",
+    "greetingPrefix": "Bonjour,",
     "heroSubtitle": "La bibliothèque est un lieu accueillant pour les chercheurs de savoir et les lecteurs passionnés.",
     "heroCta": "Voir mes emprunts",
     "popular": "Disponibles maintenant",

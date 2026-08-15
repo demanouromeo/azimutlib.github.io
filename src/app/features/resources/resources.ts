@@ -34,6 +34,7 @@ export class Resources implements OnInit {
   uploading = signal(false);
 
   readonly resourceTypes: ResourceType[] = ['QUIZ', 'NOTES', 'DOCUMENT', 'VIDEO', 'THESIS', 'EXAM_PAPER'];
+  readonly skeletonRows = Array.from({ length: 6 }, (_, i) => i);
 
   filterCategoryId: number | null = null;
   filterType: ResourceType | null = null;

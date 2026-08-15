@@ -3,7 +3,7 @@
   <mat-icon class="hero-deco hero-deco-2">circle</mat-icon>
 
   <div class="hero-text">
-    <h1>{{ 'dashboard.greeting' | translate: { name: firstName() } }}</h1>
+    <h1><span class="greeting-prefix">{{ 'dashboard.greetingPrefix' | translate }}</span><span class="greeting-name">{{ firstName() }}</span></h1>
     <p>{{ 'dashboard.heroSubtitle' | translate }}</p>
     <a mat-stroked-button routerLink="/catalog" class="hero-cta">{{ 'dashboard.heroCta' | translate }}</a>
   </div>
@@ -16,12 +16,20 @@
     <div class="stat-header">
       <mat-icon class="stat-icon">auto_stories</mat-icon>
       <div>
-        <p class="stat-value">{{ totalBooks() ?? '—' }}</p>
+        @if (totalBooks() === null) {
+          <p class="skeleton skeleton-text stat-value-skeleton"></p>
+        } @else {
+          <p class="stat-value">{{ totalBooks() }}</p>
+        }
         <p class="stat-label">{{ 'dashboard.totalBooks' | translate }}</p>
       </div>
     </div>
     <div class="stat-chart">
-      <canvas baseChart [type]="booksChartType" [data]="booksChartData" [options]="booksChartOptions"></canvas>
+      @if (totalBooks() === null) {
+        <div class="skeleton chart-skeleton"></div>
+      } @else {
+        <canvas baseChart [type]="booksChartType" [data]="booksChartData" [options]="booksChartOptions"></canvas>
+      }
     </div>
   </article>
 
@@ -29,12 +37,20 @@
     <div class="stat-header">
       <mat-icon class="stat-icon">bookmark_border</mat-icon>
       <div>
-        <p class="stat-value">{{ activeLoans() ?? '—' }}</p>
+        @if (activeLoans() === null) {
+          <p class="skeleton skeleton-text stat-value-skeleton"></p>
+        } @else {
+          <p class="stat-value">{{ activeLoans() }}</p>
+        }
         <p class="stat-label">{{ 'dashboard.activeLoans' | translate }}</p>
       </div>
     </div>
     <div class="stat-chart">
-      <canvas baseChart [type]="loansChartType" [data]="loansChartData" [options]="loansChartOptions"></canvas>
+      @if (activeLoans() === null) {
+        <div class="skeleton chart-skeleton"></div>
+      } @else {
+        <canvas baseChart [type]="loansChartType" [data]="loansChartData" [options]="loansChartOptions"></canvas>
+      }
     </div>
   </article>
 
@@ -42,12 +58,20 @@
     <div class="stat-header">
       <mat-icon class="stat-icon">receipt_long</mat-icon>
       <div>
-        <p class="stat-value">{{ unpaidFines() ?? '—' }}</p>
+        @if (unpaidFines() === null) {
+          <p class="skeleton skeleton-text stat-value-skeleton"></p>
+        } @else {
+          <p class="stat-value">{{ unpaidFines() }}</p>
+        }
         <p class="stat-label">{{ 'dashboard.unpaidFines' | translate }}</p>
       </div>
     </div>
     <div class="stat-chart">
-      <canvas baseChart [type]="finesChartType" [data]="finesChartData" [options]="finesChartOptions"></canvas>
+      @if (unpaidFines() === null) {
+        <div class="skeleton chart-skeleton"></div>
+      } @else {
+        <canvas baseChart [type]="finesChartType" [data]="finesChartData" [options]="finesChartOptions"></canvas>
+      }
     </div>
   </article>
 
@@ -55,12 +79,20 @@
     <div class="stat-header">
       <mat-icon class="stat-icon">event_available</mat-icon>
       <div>
-        <p class="stat-value">{{ pendingReservations() ?? '—' }}</p>
+        @if (pendingReservations() === null) {
+          <p class="skeleton skeleton-text stat-value-skeleton"></p>
+        } @else {
+          <p class="stat-value">{{ pendingReservations() }}</p>
+        }
         <p class="stat-label">{{ 'dashboard.pendingReservations' | translate }}</p>
       </div>
     </div>
     <div class="stat-chart">
-      <canvas baseChart [type]="reservationsChartType" [data]="reservationsChartData" [options]="reservationsChartOptions"></canvas>
+      @if (pendingReservations() === null) {
+        <div class="skeleton chart-skeleton"></div>
+      } @else {
+        <canvas baseChart [type]="reservationsChartType" [data]="reservationsChartData" [options]="reservationsChartOptions"></canvas>
+      }
     </div>
   </article>
 </div>

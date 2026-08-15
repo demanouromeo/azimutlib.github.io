@@ -30,6 +30,10 @@
   }
 }
 
+.greeting-name {
+  margin-left: 0.35em;
+}
+
 .hero-cta {
   --mdc-outlined-button-label-text-color: #ffffff;
   --mdc-outlined-button-outline-color: transparent;
@@ -41,6 +45,7 @@
   font-weight: 600;
   box-shadow: 0 6px 16px rgba(255, 79, 139, 0.35);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 
   &:hover {
     box-shadow: 0 8px 20px rgba(255, 79, 139, 0.45);
@@ -210,4 +215,51 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 32px 0;
+}
+
+.skeleton-card {
+  cursor: default;
+
+  &:hover {
+    transform: none;
+    box-shadow: var(--brand-shadow-card);
+  }
+
+  .book-body {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+    gap: 12px;
+  }
+
+  .hero-illustration,
+  .hero-deco {
+    display: none;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .greeting-prefix {
+    display: block;
+  }
+
+  // Stacked under the prefix on narrow screens; give it its own top gap
+  // instead of the inline left-margin used on desktop.
+  .greeting-name {
+    display: block;
+    margin-left: 0;
+    margin-top: 8px;
+  }
 }

@@ -1,6 +1,14 @@
 <div class="app-shell">
-  <aside class="sidebar surface-card">
-    <a class="brand" routerLink="/dashboard">
+  @if (menuOpen()) {
+    <div class="backdrop" (click)="closeMenu()"></div>
+  }
+
+  <aside class="sidebar surface-card" [class.open]="menuOpen()">
+    <button mat-icon-button class="drawer-close" (click)="closeMenu()" [attr.aria-label]="'nav.closeMenu' | translate">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <a class="brand" routerLink="/dashboard" (click)="closeMenu()">
       <img class="brand-logo" src="assets/logo.png" [alt]="'app.shortTitle' | translate" />
     </a>
 
@@ -10,6 +18,7 @@
           class="nav-item"
           [routerLink]="item.path"
           routerLinkActive="active"
+          (click)="closeMenu()"
         >
           <mat-icon>{{ item.icon }}</mat-icon>
           <span>{{ item.label | translate }}</span>
@@ -26,6 +35,10 @@
 
   <div class="main-column">
     <header class="topbar">
+      <button mat-icon-button class="menu-toggle" (click)="menuOpen.set(true)" [attr.aria-label]="'nav.openMenu' | translate">
+        <mat-icon>menu</mat-icon>
+      </button>
+
       <div class="topbar-search">
         <mat-icon>search</mat-icon>
         <input
@@ -69,4 +82,15 @@
       <router-outlet></router-outlet>
     </main>
   </div>
+
+  <button
+    type="button"
+    class="scroll-top-fab"
+    [class.visible]="showScrollTop()"
+    (click)="scrollToTop()"
+    [attr.aria-label]="'nav.scrollTop' | translate"
+    [attr.tabindex]="showScrollTop() ? 0 : -1"
+  >
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </button>
 </div>

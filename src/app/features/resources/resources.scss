@@ -25,11 +25,13 @@
 .quick-add-category {
   display: flex;
   align-items: stretch;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 4px;
 
   mat-form-field {
     flex: 1;
+    min-width: 160px;
     max-width: 320px;
   }
 
@@ -41,6 +43,7 @@
 .file-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 12px;
 
@@ -50,6 +53,7 @@
     height: 40px;
     display: flex;
     align-items: center;
+    max-width: 100%;
     color: var(--brand-ink-soft);
 
     &::file-selector-button,
@@ -155,4 +159,52 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 24px 0;
+}
+
+.skeleton-card {
+  .resource-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .quick-add-category {
+    flex-direction: column;
+    align-items: stretch;
+
+    mat-form-field {
+      max-width: 100%;
+    }
+
+    // In the row layout this button stretches to match the form field's
+    // height; stacked in a column that no longer applies, so pin it to the
+    // same 40px as the Upload button below it.
+    button[mat-stroked-button] {
+      height: 40px;
+    }
+  }
+
+  .file-row {
+    flex-direction: column;
+    align-items: stretch;
+
+    input[type='file'] {
+      width: 100%;
+    }
+
+    button[mat-flat-button] {
+      width: 100%;
+    }
+  }
+
+  .filters {
+    flex-wrap: wrap;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
 }

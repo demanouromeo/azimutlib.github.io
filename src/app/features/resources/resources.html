@@ -45,19 +45,19 @@
       }
     </div>
 
+    <div class="file-row">
+      <input type="file" (change)="onFileSelected($event)" />
+      <button mat-flat-button color="primary" [disabled]="uploading()" (click)="upload()">
+        {{ 'resources.upload' | translate }}
+      </button>
+    </div>
+
     <div class="quick-add-category">
       <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>{{ 'resources.newCategory' | translate }}</mat-label>
         <input matInput [(ngModel)]="newCategoryName" (keyup.enter)="addCategory()" />
       </mat-form-field>
       <button mat-stroked-button (click)="addCategory()">{{ 'resources.addCategory' | translate }}</button>
-    </div>
-
-    <div class="file-row">
-      <input type="file" (change)="onFileSelected($event)" />
-      <button mat-flat-button color="primary" [disabled]="uploading()" (click)="upload()">
-        {{ 'resources.upload' | translate }}
-      </button>
     </div>
   </section>
 }
@@ -86,35 +86,46 @@
   </div>
 
   <div class="resource-grid">
-    @for (resource of resources(); track resource.id) {
-      <article class="resource-card">
-        <div class="resource-icon">
-          <mat-icon>{{ typeIcon(resource.type) }}</mat-icon>
-        </div>
-        <div class="resource-body">
-          <h3>{{ resource.title }}</h3>
-          <p class="meta">{{ resource.categoryName }} &middot; {{ formatSize(resource.fileSizeBytes) }}</p>
-          @if (resource.author) {
-            <p class="meta">{{ resource.author }}@if (resource.academicYear) { &middot; {{ resource.academicYear }} }</p>
-          }
-          <p class="uploader">{{ 'resources.by' | translate }} {{ resource.uploadedByName }}</p>
-          @if (resource.description) {
-            <p class="description">{{ resource.description }}</p>
-          }
-        </div>
-        <div class="resource-actions">
-          <button mat-icon-button (click)="download(resource)" [attr.aria-label]="'resources.download' | translate">
-            <mat-icon>download</mat-icon>
-          </button>
-          @if (canDelete(resource)) {
-            <button mat-icon-button color="warn" (click)="remove(resource)" [attr.aria-label]="'resources.remove' | translate">
-              <mat-icon>delete_outline</mat-icon>
+    @if (loading()) {
+      @for (i of skeletonRows; track i) {
+        <article class="resource-card skeleton-card">
+          <div class="resource-icon skeleton"></div>
+          <div class="resource-body">
+            <span class="skeleton skeleton-text" style="width: 70%;"></span>
+            <span class="skeleton skeleton-text" style="width: 45%;"></span>
+            <span class="skeleton skeleton-text" style="width: 55%;"></span>
+          </div>
+        </article>
+      }
+    } @else {
+      @for (resource of resources(); track resource.id) {
+        <article class="resource-card">
+          <div class="resource-icon">
+            <mat-icon>{{ typeIcon(resource.type) }}</mat-icon>
+          </div>
+          <div class="resource-body">
+            <h3>{{ resource.title }}</h3>
+            <p class="meta">{{ resource.categoryName }} &middot; {{ formatSize(resource.fileSizeBytes) }}</p>
+            @if (resource.author) {
+              <p class="meta">{{ resource.author }}@if (resource.academicYear) { &middot; {{ resource.academicYear }} }</p>
+            }
+            <p class="uploader">{{ 'resources.by' | translate }} {{ resource.uploadedByName }}</p>
+            @if (resource.description) {
+              <p class="description">{{ resource.description }}</p>
+            }
+          </div>
+          <div class="resource-actions">
+            <button mat-icon-button (click)="download(resource)" [attr.aria-label]="'resources.download' | translate">
+              <mat-icon>download</mat-icon>
             </button>
-          }
-        </div>
-      </article>
-    } @empty {
-      @if (!loading()) {
+            @if (canDelete(resource)) {
+              <button mat-icon-button color="warn" (click)="remove(resource)" [attr.aria-label]="'resources.remove' | translate">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            }
+          </div>
+        </article>
+      } @empty {
         <p class="empty-state">{{ 'resources.noResults' | translate }}</p>
       }
     }
